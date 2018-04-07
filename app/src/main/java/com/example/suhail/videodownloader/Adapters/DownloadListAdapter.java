@@ -1,8 +1,15 @@
-package com.example.suhail.videodownloader.adapter;
+package com.example.suhail.videodownloader.Adapters;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Environment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +30,25 @@ import com.downloader.Progress;
 import com.downloader.Status;
 import com.example.suhail.videodownloader.Model.Urls;
 import com.example.suhail.videodownloader.R;
-import com.example.suhail.videodownloader.utils.Utils;
+import com.example.suhail.videodownloader.Utils.Utils;
+import com.tonyodev.fetch2.Fetch;
+import com.tonyodev.fetch2.NetworkType;
+import com.tonyodev.fetch2.Priority;
+import com.tonyodev.fetch2.Request;
+import com.tonyodev.fetch2.AbstractFetchListener;
+import com.tonyodev.fetch2.Download;
 
+import com.tonyodev.fetch2.Fetch;
+import com.tonyodev.fetch2.FetchListener;
+import com.tonyodev.fetch2.Func;
+import com.tonyodev.fetch2.NetworkType;
+import com.tonyodev.fetch2.Request;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -34,7 +58,7 @@ import java.util.ArrayList;
 public class DownloadListAdapter extends RecyclerView.Adapter<DownloadListAdapter.ViewHolder> {
 
     String dirPath;
-
+    private Fetch mainFetch;
     String name;
     ArrayList<Urls> data = new ArrayList<>();
     Context context;
@@ -56,14 +80,37 @@ public class DownloadListAdapter extends RecyclerView.Adapter<DownloadListAdapte
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
+
         name = URLUtil.guessFileName(data.get(position).getUrl(), null, null);
 
         holder.filename.setText(name);
+
+
+
+
+
+
 
         holder.buttonOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+
+                /*     String url = data.get(position).getUrl();
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+                request.setDescription("Some descrition");
+                request.setTitle("Some title");
+// in order for this if to run, you must use the android 3.2 to compile your app
+                request.allowScanningByMediaScanner();
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, name);
+
+// get download service and enqueue file
+                DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+                if (manager != null) {
+                    manager.enqueue(request);
+                }
+              */
 
                 if (Status.RUNNING == PRDownloader.getStatus(data.get(position).getId())) {
                     PRDownloader.pause(data.get(position).getId());
@@ -81,8 +128,7 @@ public class DownloadListAdapter extends RecyclerView.Adapter<DownloadListAdapte
                     return;
                 }
 
-
-                data.get(position).setId(PRDownloader.download(data.get(position).getUrl(), dirPath, name)
+   data.get(position).setId(PRDownloader.download(data.get(position).getUrl(), dirPath, name)
                         .build()
                         .setOnStartOrResumeListener(new OnStartOrResumeListener() {
                             @Override
@@ -142,6 +188,10 @@ public class DownloadListAdapter extends RecyclerView.Adapter<DownloadListAdapte
                                 holder.buttonOne.setEnabled(true);
                             }
                         }));
+
+
+
+
             }
         });
 
@@ -152,8 +202,9 @@ public class DownloadListAdapter extends RecyclerView.Adapter<DownloadListAdapte
             }
         });
 
-
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -179,3 +230,7 @@ public class DownloadListAdapter extends RecyclerView.Adapter<DownloadListAdapte
         }
     }
 }
+
+
+
+

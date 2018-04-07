@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.example.suhail.videodownloader.utils;
+package com.example.suhail.videodownloader.Utils;
 
 import android.content.Context;
 import android.os.Environment;

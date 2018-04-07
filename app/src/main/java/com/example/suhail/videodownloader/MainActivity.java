@@ -2,49 +2,43 @@ package com.example.suhail.videodownloader;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AutomaticZenRule;
-import android.app.DownloadManager;
-import android.content.ActivityNotFoundException;
-import android.content.BroadcastReceiver;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.os.ParcelFileDescriptor;
+import android.os.Handler;
+import android.os.ResultReceiver;
 import android.os.StrictMode;
-import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
-import android.webkit.URLUtil;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
 import java.io.File;
 
-import com.example.suhail.videodownloader.utils.Utils;
+import com.example.suhail.videodownloader.Utils.DownloadService;
+import com.example.suhail.videodownloader.Utils.Utils;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
-    LinearLayout view_downloads;
-    LinearLayout pasteurl;
+    public String progress;
+    FrameLayout main_layout;
+    FrameLayout download_layout;
+
     Context context;
     android.app.DownloadManager downloadManager;
     SharedPreferences preferenceManager;
@@ -57,48 +51,42 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
 
+        main_layout = findViewById(R.id.main_container);
+        download_layout = findViewById(R.id.download_container);
+
         isStoragePermissionGranted();
         isStoragePermissionGrantedRead();
 
         context = MainActivity.this;
-
-
-        view_downloads = findViewById(R.id.view_downloads);
-        view_downloads.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent=new Intent(MainActivity.this, DownloadActivity.class) ;
-                        intent.putExtra("ViewOnly",true) ;
-                        startActivity(intent);
-                        finish();
-                    }
-                }
-        );
-
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
-
-
         final String imageURL = "http://mirrors.standaloneinstaller.com/video-sample/jellyfish-25-mbps-hd-hevc.3gp";
-
-
-        pasteurl = findViewById(R.id.Paste_url);
-        pasteurl.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-
-                        startActivity(new Intent(MainActivity.this, DownloadActivity.class));
-
-
-                    }
-                }
-        );
-
         dirPath = Utils.getRootDirPath(getApplicationContext());
 
+        if (isStoragePermissionGranted() && isStoragePermissionGrantedRead()) {
+            DownloadFrag downloadFrag = new DownloadFrag();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.download_container, downloadFrag)
+
+                    .commit();
+
+
+            getSupportFragmentManager().beginTransaction()
+
+                    .add(R.id.main_container, new MainFrag())
+                    .commit();
+
+            download_layout.setVisibility(View.INVISIBLE);
+
+        }
+
+
+    }
+
+
+    void updateprogress(String a) {
+        progress = a;
+        Toast.makeText(context, progress, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -148,6 +136,20 @@ public class MainActivity extends Activity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+
+
+        if (download_layout.getVisibility() == View.VISIBLE)
+        // do something with f
+        {
+
+            download_layout.setVisibility(View.INVISIBLE);
+            main_layout.setVisibility(View.VISIBLE);
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     public boolean isStoragePermissionGranted() {
         if (Build.VERSION.SDK_INT >= 23) {
@@ -186,3 +188,4 @@ public class MainActivity extends Activity {
     }
 
 }
+

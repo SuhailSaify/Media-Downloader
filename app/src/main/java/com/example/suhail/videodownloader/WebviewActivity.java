@@ -42,7 +42,7 @@ public class WebviewActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         if (searchbar_text.getText() != null) {
-                            //  webView.loadUrl(searchbar_text.getText().toString());
+                              webView.loadUrl(searchbar_text.getText().toString());
                         } else {
                             Toast.makeText(WebviewActivity.this, "Enter text to search", Toast.LENGTH_SHORT).show();
                         }
