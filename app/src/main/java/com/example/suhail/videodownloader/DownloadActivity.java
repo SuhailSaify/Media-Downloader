@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.suhail.videodownloader.Model.Urls;
 import com.example.suhail.videodownloader.Adapters.DownloadListAdapter;
+import com.example.suhail.videodownloader.Utils.DownloadedVidShared;
 import com.example.suhail.videodownloader.Utils.Utils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -55,7 +56,7 @@ public class DownloadActivity extends AppCompatActivity {
                 LinearLayoutManager.VERTICAL, false);
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        downloadListAdapter = new DownloadListAdapter(mainMenuItems, DownloadActivity.this, Utils.getRootDirPath(getApplicationContext()));
+        downloadListAdapter = new DownloadListAdapter(mainMenuItems, DownloadActivity.this, DownloadActivity.this,Utils.getRootDirPath(getApplicationContext()));
 
         recyclerView.setAdapter(downloadListAdapter);
 

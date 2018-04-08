@@ -1,9 +1,6 @@
 package com.example.suhail.videodownloader;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,8 +8,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.ResultReceiver;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -21,16 +16,17 @@ import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
 import java.io.File;
 
-import com.example.suhail.videodownloader.Utils.DownloadService;
+import com.example.suhail.videodownloader.Fragments.DownloadFrag;
+import com.example.suhail.videodownloader.Fragments.MainFrag;
+import com.example.suhail.videodownloader.Fragments.ShowDownloaded;
+import com.example.suhail.videodownloader.Fragments.WebView_Frag;
 import com.example.suhail.videodownloader.Utils.Utils;
 
 public class MainActivity extends FragmentActivity {
@@ -38,6 +34,7 @@ public class MainActivity extends FragmentActivity {
     public String progress;
     FrameLayout main_layout;
     FrameLayout download_layout;
+    DownloadFrag downloadFrag;
 
     Context context;
     android.app.DownloadManager downloadManager;
@@ -64,7 +61,7 @@ public class MainActivity extends FragmentActivity {
         dirPath = Utils.getRootDirPath(getApplicationContext());
 
         if (isStoragePermissionGranted() && isStoragePermissionGrantedRead()) {
-            DownloadFrag downloadFrag = new DownloadFrag();
+            downloadFrag = new DownloadFrag();
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.download_container, downloadFrag)
 
@@ -80,6 +77,13 @@ public class MainActivity extends FragmentActivity {
 
         }
 
+
+    }
+
+
+    public void download(String url) {
+
+        downloadFrag.setRecyclerView(url);
 
     }
 
@@ -139,13 +143,24 @@ public class MainActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
 
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.main_container);
+
 
         if (download_layout.getVisibility() == View.VISIBLE)
         // do something with f
         {
-
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new MainFrag());
             download_layout.setVisibility(View.INVISIBLE);
             main_layout.setVisibility(View.VISIBLE);
+        } else if (f instanceof ShowDownloaded)
+
+        {
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new MainFrag()).commit();
+
+        } else if (f instanceof WebView_Frag) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new MainFrag()).commit();
+
         } else {
             super.onBackPressed();
         }

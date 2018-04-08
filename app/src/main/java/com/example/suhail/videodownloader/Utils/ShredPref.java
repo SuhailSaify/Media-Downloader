@@ -1,8 +1,10 @@
-package com.example.suhail.videodownloader;
+package com.example.suhail.videodownloader.Utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
+import com.example.suhail.videodownloader.MainActivity;
 
 /**
  * Created by Suhail on 4/7/2018.

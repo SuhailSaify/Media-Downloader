@@ -1,15 +1,9 @@
 package com.example.suhail.videodownloader.Adapters;
 
-import android.app.DownloadManager;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Environment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,28 +22,16 @@ import com.downloader.OnStartOrResumeListener;
 import com.downloader.PRDownloader;
 import com.downloader.Progress;
 import com.downloader.Status;
+import com.example.suhail.videodownloader.Model.DownloadedVideos;
 import com.example.suhail.videodownloader.Model.Urls;
 import com.example.suhail.videodownloader.R;
+import com.example.suhail.videodownloader.Utils.DownloadedVidShared;
 import com.example.suhail.videodownloader.Utils.Utils;
-import com.tonyodev.fetch2.Fetch;
-import com.tonyodev.fetch2.NetworkType;
-import com.tonyodev.fetch2.Priority;
-import com.tonyodev.fetch2.Request;
-import com.tonyodev.fetch2.AbstractFetchListener;
-import com.tonyodev.fetch2.Download;
 
-import com.tonyodev.fetch2.Fetch;
-import com.tonyodev.fetch2.FetchListener;
-import com.tonyodev.fetch2.Func;
-import com.tonyodev.fetch2.NetworkType;
-import com.tonyodev.fetch2.Request;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Created by Suhail on 4/4/2018.
@@ -57,16 +39,23 @@ import java.util.ArrayList;
 
 public class DownloadListAdapter extends RecyclerView.Adapter<DownloadListAdapter.ViewHolder> {
 
+    //DownloadedVidShared downloadedVidShared;
+    Activity activity;
+    DownloadedVidShared downloadedVidShared;
+    ArrayList<DownloadedVideos> downloadedVideos = new ArrayList<>();
     String dirPath;
-    private Fetch mainFetch;
+
     String name;
     ArrayList<Urls> data = new ArrayList<>();
     Context context;
 
-    public DownloadListAdapter(ArrayList<Urls> data, Context context, String dirPath) {
+    public DownloadListAdapter(ArrayList<Urls> data, Context context, Activity activity, String dirPath) {
         this.data = data;
+        this.activity = activity;
         this.context = context;
         this.dirPath = dirPath;
+        downloadedVidShared = new DownloadedVidShared(context, activity);
+
     }
 
     @Override
@@ -80,17 +69,34 @@ public class DownloadListAdapter extends RecyclerView.Adapter<DownloadListAdapte
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-
+        String url = data.get(position).getUrl();
         name = URLUtil.guessFileName(data.get(position).getUrl(), null, null);
 
         holder.filename.setText(name);
 
 
+        holder.buttonremove.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        data.remove(position);
+                        notifyDataSetChanged();
+                        downloadedVidShared.saveURL(data);
+                    }
+                }
+        );
 
 
+        ArrayList<Urls> ar = downloadedVidShared.geturl();
 
+        if(ar.contains(data.get(position)))
+        {
+            Toast.makeText(activity, "already downaloaded", Toast.LENGTH_SHORT).show();
+        }
 
-
+        //  else
+        //  {
         holder.buttonOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,7 +134,7 @@ public class DownloadListAdapter extends RecyclerView.Adapter<DownloadListAdapte
                     return;
                 }
 
-   data.get(position).setId(PRDownloader.download(data.get(position).getUrl(), dirPath, name)
+                data.get(position).setId(PRDownloader.download(data.get(position).getUrl(), dirPath, name)
                         .build()
                         .setOnStartOrResumeListener(new OnStartOrResumeListener() {
                             @Override
@@ -174,6 +180,10 @@ public class DownloadListAdapter extends RecyclerView.Adapter<DownloadListAdapte
                                 holder.buttonOne.setEnabled(false);
                                 holder.buttonCancelOne.setEnabled(false);
                                 holder.buttonOne.setText(R.string.completed);
+
+                                downloadedVideos.add(new DownloadedVideos(name, dirPath + File.separator + name, data.get(position).getUrl()));
+                                DownloadedVidShared downloadedVidShared = new DownloadedVidShared(context, activity);
+                                downloadedVidShared.savevid(downloadedVideos);
                             }
 
                             @Override
@@ -190,11 +200,9 @@ public class DownloadListAdapter extends RecyclerView.Adapter<DownloadListAdapte
                         }));
 
 
-
-
             }
         });
-
+        //  }
         holder.buttonCancelOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -205,14 +213,13 @@ public class DownloadListAdapter extends RecyclerView.Adapter<DownloadListAdapte
     }
 
 
-
     @Override
     public int getItemCount() {
         return data.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        Button buttonOne, buttonCancelOne;
+        Button buttonOne, buttonCancelOne, buttonremove;
 
         TextView textViewProgressOne, filename;
 
@@ -221,7 +228,7 @@ public class DownloadListAdapter extends RecyclerView.Adapter<DownloadListAdapte
 
         public ViewHolder(View itemView) {
             super(itemView);
-
+            buttonremove = itemView.findViewById(R.id.buttonremove_download);
             buttonCancelOne = itemView.findViewById(R.id.buttonCancel_download);
             buttonOne = itemView.findViewById(R.id.buttonone_download);
             progressBarOne = itemView.findViewById(R.id.progressBar_download);

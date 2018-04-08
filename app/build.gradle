@@ -23,6 +23,7 @@ android {
 dependencies {
 
 
+
     implementation 'com.google.code.gson:gson:2.7'
     implementation 'com.mindorks.android:prdownloader:0.2.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -35,5 +36,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation "com.tonyodev.fetch2:fetch2:2.0.0-RC12"
+
 }

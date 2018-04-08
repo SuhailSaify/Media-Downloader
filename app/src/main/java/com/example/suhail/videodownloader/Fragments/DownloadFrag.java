@@ -1,8 +1,7 @@
-package com.example.suhail.videodownloader;
+package com.example.suhail.videodownloader.Fragments;
 
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,10 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.suhail.videodownloader.Adapters.DownloadListAdapter;
 import com.example.suhail.videodownloader.Model.Urls;
+import com.example.suhail.videodownloader.R;
+import com.example.suhail.videodownloader.Utils.DownloadedVidShared;
+import com.example.suhail.videodownloader.Utils.ShredPref;
 import com.example.suhail.videodownloader.Utils.Utils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -41,6 +42,7 @@ public class DownloadFrag extends Fragment {
     SharedPreferences mPrefs;
     Gson gson = new Gson();
     Type listOfObjects;
+    DownloadedVidShared downloadedVidShared;
 
     public DownloadFrag() {
         // Required empty public constructor
@@ -69,19 +71,22 @@ public class DownloadFrag extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
+        downloadedVidShared = new DownloadedVidShared(getContext(), getActivity());
         mPrefs = getActivity().getPreferences(getActivity().MODE_PRIVATE);
         listOfObjects = new TypeToken<ArrayList<Urls>>() {
         }.getType();
         String json = mPrefs.getString("MyList", "");
-        if (gson.fromJson(json, listOfObjects) != null) {
-            mainMenuItems = gson.fromJson(json, listOfObjects);
+
+
+        if (downloadedVidShared.geturl() != null) {
+            mainMenuItems = downloadedVidShared.geturl();
         }
         recyclerView = getActivity().findViewById(R.id.download_list_recyclerview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.VERTICAL, false);
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        downloadListAdapter = new DownloadListAdapter(mainMenuItems, getActivity(), Utils.getRootDirPath(getActivity()));
+        downloadListAdapter = new DownloadListAdapter(mainMenuItems, getContext(), getActivity(), Utils.getRootDirPath(getActivity()));
 
         recyclerView.setAdapter(downloadListAdapter);
 
@@ -94,7 +99,7 @@ public class DownloadFrag extends Fragment {
         //-----------------------------
 
         Listners();
-      //  check();
+        //  check();
 
     }
 
@@ -111,13 +116,13 @@ public class DownloadFrag extends Fragment {
         );
     }
 
-    void setRecyclerView(String uurl) {
+    public void setRecyclerView(String uurl) {
 
 
         mainMenuItems.add(new Urls(uurl, 0));
         downloadListAdapter.notifyDataSetChanged();
 
-
+        downloadedVidShared.saveURL(mainMenuItems);
         String strObject = gson.toJson(mainMenuItems, listOfObjects); // Here list is your List<CUSTOM_CLASS> object
         SharedPreferences.Editor prefsEditor = mPrefs.edit();
 

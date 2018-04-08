@@ -60,7 +60,14 @@
                 android:layout_weight="1"
 
                 android:textAlignment="center" />
-
+            <Button
+                android:id="@+id/buttonremove_download"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+              
+                android:text="Remove" />
             <Button
                 android:id="@+id/buttonCancel_download"
                 android:layout_width="match_parent"
