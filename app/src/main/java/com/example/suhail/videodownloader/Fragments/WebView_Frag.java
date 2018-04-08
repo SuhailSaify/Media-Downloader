@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.DownloadListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -19,10 +20,12 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.suhail.videodownloader.MainActivity;
 import com.example.suhail.videodownloader.R;
+import com.example.suhail.videodownloader.Utils.SavelastUrl;
 
 
 public class WebView_Frag extends Fragment {
@@ -31,7 +34,9 @@ public class WebView_Frag extends Fragment {
     ImageView imageView;
     EditText url;
     Button go;
+    SavelastUrl savelastUrl;
     WebView webView;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,27 +50,60 @@ public class WebView_Frag extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        progressBar = getActivity().findViewById(R.id.web_progressbar);
+        savelastUrl = new SavelastUrl(getContext(), getActivity());
+
+        String s = savelastUrl.geturl();
+
         imageView = getActivity().findViewById(R.id.goback);
         go = getActivity().findViewById(R.id.gobutton);
         url = getActivity().findViewById(R.id.url_edittext);
         webView = getActivity().findViewById(R.id.web_view);
         webView.setWebViewClient(new MyBrowser());
-        webView.loadUrl("https://www.google.com");
-    /*    webView.setWebChromeClient(new WebChromeClient(){
 
-          public void onProgressChanged(WebView view, int progress) {
-                getActivity().setTitle("Loading...");
-                getActivity().setProgress(progress * 100);
-                if(progress == 100)
-                    getActivity().setTitle("My title");
+        if (s != null)
+
+        {
+            webView.loadUrl(s);
+
+        } else {
+            webView.loadUrl("https://www.google.com");
+        }
+        webView.setWebChromeClient(new WebChromeClient() {
+
+            public void onProgressChanged(WebView view, int progress) {
+                progressBar.setProgress(progress);
+
+                if (progress == 100) {
+
+                    url.setText(webView.getUrl());
+                    progressBar.setVisibility(View.GONE);
+                    savelastUrl.saveURL(webView.getUrl());
+
+                } else {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
             }
         });
-  */
+
+
         listner();
 
     }
 
     private void listner() {
+
+        webView.setDownloadListener(
+                new DownloadListener() {
+                    @Override
+                    public void onDownloadStart(String s, String s1, String s2, String s3, long l) {
+                        Toast.makeText(getActivity(), "Downloading Video", Toast.LENGTH_SHORT).show();
+                        MainActivity activity = (MainActivity) getActivity();
+                        activity.download(s);
+                    }
+                }
+        );
+
 
         imageView.setOnClickListener(
                 new View.OnClickListener() {
@@ -88,8 +126,10 @@ public class WebView_Frag extends Fragment {
                         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
                         if (url1.contains("https://")) {
                             webView.loadUrl(url1);
-                        } else {
+                        } else if (url1.contains("www.") && url1.contains(".com")) {
                             webView.loadUrl("https://" + url1);
+                        } else {
+                            webView.loadUrl("https://www.google.com/search?q=" + url1);
                         }
 
                     }
@@ -126,6 +166,7 @@ public class WebView_Frag extends Fragment {
 
 
     }
+
 
 }
 

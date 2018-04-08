@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,7 +33,7 @@ public class ShowDownloaded extends Fragment {
     FrameLayout main_layout;
     FrameLayout download_layout;
     RecyclerView recyclerView;
-    ArrayList<DownloadedVideos> downloadedVideos = new ArrayList<>();
+    ArrayList<DownloadedVideos> downloadedVideos ;
     DownloadedVidShared downloadedVidShared;
     ShowDownloadedAdapter showDownloadedAdapter;
 
@@ -47,18 +49,18 @@ public class ShowDownloaded extends Fragment {
         return inflater.inflate(R.layout.fragment_show_downloaded, container, false);
 
 
-
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        downloadedVideos = new ArrayList<>();
+
         main_layout = getActivity().findViewById(R.id.main_container);
         download_layout = getActivity().findViewById(R.id.download_container);
-      //  main_layout.setVisibility(View.VISIBLE);
-       // download_layout.setVisibility(View.INVISIBLE);
+        //  main_layout.setVisibility(View.VISIBLE);
+        // download_layout.setVisibility(View.INVISIBLE);
 
 
         recyclerView = getActivity().findViewById(R.id.show_downloaded_recyler_view);
@@ -66,23 +68,21 @@ public class ShowDownloaded extends Fragment {
 
         downloadedVideos = downloadedVidShared.getvid();
 
-        if(downloadedVideos==null)
-        {
-            Toast.makeText(getContext(), "nul", Toast.LENGTH_SHORT).show();
+        if (downloadedVidShared.getvid()==null) {
+            Toast.makeText(getContext(), "NO DOWNLOADS TO SHOW", Toast.LENGTH_SHORT).show();
+
+            FragmentManager fragmentManager2 = getFragmentManager();
+            FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+            MainFrag fragment2 = new MainFrag();
+            fragmentTransaction2.replace(R.id.main_container, fragment2).commit();
+        } else {
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
+                    LinearLayoutManager.VERTICAL, false);
+
+            recyclerView.setLayoutManager(linearLayoutManager);
+            showDownloadedAdapter = new ShowDownloadedAdapter(downloadedVideos, getContext(), getActivity());
+
+            recyclerView.setAdapter(showDownloadedAdapter);
         }
-        else
-        {
-            Toast.makeText(getContext(), "notnull", Toast.LENGTH_SHORT).show();
-        }
-
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(),
-                LinearLayoutManager.VERTICAL, false);
-
-        recyclerView.setLayoutManager(linearLayoutManager);
-        showDownloadedAdapter = new ShowDownloadedAdapter(downloadedVideos, getContext(), getActivity());
-
-        recyclerView.setAdapter(showDownloadedAdapter);
-
     }
 }
