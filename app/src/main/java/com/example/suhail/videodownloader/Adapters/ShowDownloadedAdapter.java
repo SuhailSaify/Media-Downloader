@@ -50,22 +50,23 @@ public class ShowDownloadedAdapter extends RecyclerView.Adapter<ShowDownloadedAd
     }
 
     @Override
-    public void onBindViewHolder(ShowDownloadedAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ShowDownloadedAdapter.ViewHolder holder, final int position) {
 
         Toast.makeText(context, downloadedVideos.get(position).getName(), Toast.LENGTH_SHORT).show();
 
         holder.title.setText(downloadedVideos.get(position).getName());
 
-        File file = new File(downloadedVideos.get(position).getPath() + File.separator +
+        final File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+ File.separator +
                 downloadedVideos.get(position).getName());
 
-        path = Uri.fromFile(file);
+        //path = String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+File.separator+downloadedVideos.get(position).getName())
         holder.open.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
-                        Log.i("Opening Video", String.valueOf(path));
+                        Log.i("Opening Video",
+                                String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS))+File.separator+downloadedVideos.get(position).getName());
                         Intent pdfOpenintent = new Intent(Intent.ACTION_VIEW);
                         pdfOpenintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         pdfOpenintent.setDataAndType(path, "video/mp4");

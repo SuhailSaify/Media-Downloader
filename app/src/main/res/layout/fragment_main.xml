@@ -3,15 +3,97 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:gravity="center"
     android:orientation="vertical"
 
     tools:context="com.example.suhail.videodownloader.Fragments.MainFrag">
 
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <LinearLayout
+        android:id="@+id/help"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="false"
+            android:focusable="true"
+            android:src="@drawable/ic_help" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="false"
+            android:focusable="true"
+            android:gravity="center"
+            android:paddingEnd="10dp"
+            android:text="Help"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        app:cardCornerRadius="10dp"
+        app:cardMaxElevation="10dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:id="@+id/social_media_download"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="left"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatImageView
+
+                android:layout_width="70dp"
+
+
+                android:layout_height="70dp"
+                android:padding="5dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_social" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="1dp"
+                android:layout_height="match_parent" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="5dp"
+                android:paddingStart="20dp"
+                android:text="Download Video From Web Page OR Social Media Site"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
     <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="10dp"
         app:cardCornerRadius="10dp"
@@ -45,8 +127,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:padding="5dp"
-                android:paddingStart="20dp"
-                android:text="@string/download_view_downloading_file"
+                android:paddingStart="50dp"
+                android:text="Paste Direct File URL"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -54,7 +136,7 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="10dp"
         app:cardCornerRadius="10dp"
@@ -89,15 +171,16 @@
                 android:gravity="center"
                 android:padding="5dp"
                 android:paddingStart="20dp"
-                android:text="View Downloaded Files"
+                android:text="View Recent Downloaded Files"
                 android:textStyle="bold" />
 
         </LinearLayout>
 
+
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="10dp"
         app:cardCornerRadius="10dp"
@@ -133,11 +216,90 @@
                 android:gravity="center"
                 android:padding="5dp"
                 android:paddingStart="20dp"
-                android:text="Browse web for download"
+                android:text="Browse web for file download"
                 android:textStyle="bold" />
 
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <android.support.v4.widget.Space
+            android:layout_width="20dp"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/share_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="false"
+                android:focusable="true"
+                android:src="@drawable/ic_share" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="false"
+                android:focusable="true"
+                android:gravity="center"
+                android:paddingEnd="10dp"
+                android:text="Share"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <android.support.v4.widget.Space
+            android:layout_width="50dp"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+
+            android:id="@+id/rate_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="false"
+                android:focusable="true"
+                android:src="@drawable/ic_rate" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="false"
+                android:focusable="true"
+                android:gravity="center"
+                android:paddingEnd="10dp"
+                android:text="Rate Our App"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

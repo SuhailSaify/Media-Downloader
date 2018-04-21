@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,9 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.suhail.videodownloader.MainActivity;
@@ -37,6 +40,7 @@ public class WebView_Frag extends Fragment {
     SavelastUrl savelastUrl;
     WebView webView;
     ProgressBar progressBar;
+    SearchView searchView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,14 +56,15 @@ public class WebView_Frag extends Fragment {
 
         progressBar = getActivity().findViewById(R.id.web_progressbar);
         savelastUrl = new SavelastUrl(getContext(), getActivity());
-
+        searchView = getActivity().findViewById(R.id.searchvew);
         String s = savelastUrl.geturl();
 
         imageView = getActivity().findViewById(R.id.goback);
         go = getActivity().findViewById(R.id.gobutton);
-        url = getActivity().findViewById(R.id.url_edittext);
+        // url = getActivity().findViewById(R.id.url_edittext);
         webView = getActivity().findViewById(R.id.web_view);
         webView.setWebViewClient(new MyBrowser());
+
 
         if (s != null)
 
@@ -76,7 +81,8 @@ public class WebView_Frag extends Fragment {
 
                 if (progress == 100) {
 
-                    url.setText(webView.getUrl());
+//                    url.setText(webView.getUrl());
+                    //searchView.setQuery(webView.getUrl(), false);
                     progressBar.setVisibility(View.GONE);
                     savelastUrl.saveURL(webView.getUrl());
 
@@ -93,11 +99,61 @@ public class WebView_Frag extends Fragment {
 
     private void listner() {
 
+
+
+
+        searchView.setOnQueryTextListener(
+                new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+
+                        String url1 = searchView.getQuery().toString();
+
+                        webView.getSettings().setLoadsImagesAutomatically(true);
+                        webView.getSettings().setJavaScriptEnabled(true);
+                        webView.getSettings().setJavaScriptEnabled(true);
+                        webView.getSettings().setLoadWithOverviewMode(true);
+                        webView.getSettings().setUseWideViewPort(true);
+                        webView.getSettings().setAllowFileAccess(true);
+                        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+                        webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+                        if (url1.contains("https://")) {
+                            webView.loadUrl(url1);
+                        } else if (url1.contains("www.") && url1.contains(".com")) {
+                            webView.loadUrl("https://" + url1);
+                        } else if (url1.contains(".com")) {
+                            webView.loadUrl("https://www." + url1);
+                        } else {
+                            webView.loadUrl("https://www.google.com/search?q=" + url1);
+                        }
+
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+
+                        return false;
+                    }
+                }
+        );
+
+        searchView.setOnSearchClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+
+                    }
+                }
+        );
+
+
         webView.setDownloadListener(
                 new DownloadListener() {
                     @Override
                     public void onDownloadStart(String s, String s1, String s2, String s3, long l) {
-                        Toast.makeText(getActivity(), "Downloading Video", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Downloading File", Toast.LENGTH_SHORT).show();
                         MainActivity activity = (MainActivity) getActivity();
                         activity.download(s);
                     }
@@ -119,15 +175,23 @@ public class WebView_Frag extends Fragment {
                     @Override
                     public void onClick(View view) {
 
-                        String url1 = url.getText().toString();
+                        String url1 = searchView.getQuery().toString();
 
                         webView.getSettings().setLoadsImagesAutomatically(true);
                         webView.getSettings().setJavaScriptEnabled(true);
+                        webView.getSettings().setJavaScriptEnabled(true);
+                        webView.getSettings().setAllowFileAccess(true);
+                        webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+                        webView.getSettings().setLoadWithOverviewMode(true);
                         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
                         if (url1.contains("https://")) {
                             webView.loadUrl(url1);
-                        } else if (url1.contains("www.") && url1.contains(".com")) {
+                        } else if
+
+                                (url1.contains("www.") && url1.contains(".com")) {
                             webView.loadUrl("https://" + url1);
+                        } else if (url1.contains(".com")) {
+                            webView.loadUrl("https://www." + url1);
                         } else {
                             webView.loadUrl("https://www.google.com/search?q=" + url1);
                         }
@@ -135,6 +199,16 @@ public class WebView_Frag extends Fragment {
                     }
                 }
         );
+
+      /*  url.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        url.selectAll();
+                    }
+                }
+        );
+*/
     }
 
 
@@ -155,7 +229,7 @@ public class WebView_Frag extends Fragment {
                     || url.contains(".wmv") || url.contains(".wmv")
 
                     ) {
-                Toast.makeText(getActivity(), "Downloading Video", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Downloading File", Toast.LENGTH_SHORT).show();
                 MainActivity activity = (MainActivity) getActivity();
                 activity.download(url);
             } else {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VideoDownloader</string>
+    <string name="app_name">All File Downloader</string>
     <string name="some_error_occurred">Some error occurred</string>
     <string name="start">start</string>
     <string name="completed">completed</string>

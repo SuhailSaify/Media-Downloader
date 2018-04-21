@@ -28,26 +28,28 @@
                     android:id="@+id/goback"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:padding="5dp"
+
                     android:src="@drawable/ic_arrow_back" />
 
-                <EditText
-                    android:id="@+id/url_edittext"
-                    android:layout_width="0dp"
+              <SearchView
+                  android:id="@+id/searchvew"
+                  android:layout_width="0dp"
+                  android:layout_height="40dp"
+                  android:layout_weight="1"
+                  android:textAlignment="textStart">
 
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:focusable="true"
-                    android:hint="Enter Url"
-                    android:inputType="textWebEditText"
-                    android:maxLines="1" />
-
-
+              </SearchView>
                 <Button
                     android:id="@+id/gobutton"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="GO" />
+                    android:layout_height="match_parent"
+                    android:backgroundTint="#ffffff"
+                    android:text="Go" />
+
             </LinearLayout>
         </android.support.v7.widget.CardView>
 

@@ -90,7 +90,7 @@ public class DownloadActivity extends AppCompatActivity {
     void setRecyclerView(String uurl) {
 
 
-        mainMenuItems.add(new Urls(uurl, 0));
+        mainMenuItems.add(new Urls(uurl, 0,false,null));
         downloadListAdapter.notifyDataSetChanged();
 
 

@@ -7,15 +7,40 @@ package com.example.suhail.videodownloader.Model;
 public class Urls {
     String url;
     int id;
+    boolean isdownloaded;
+    String path;
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+
+        this.path = path;
+    }
+
+    public Urls(String url, int id, boolean isdownloaded, String path) {
+
+        this.url = url;
+        this.id = id;
+        this.isdownloaded = isdownloaded;
+        this.path = path;
+    }
+
+    public void setIsdownloaded(boolean isdownloaded) {
+        this.isdownloaded = isdownloaded;
+    }
+
+    public boolean isIsdownloaded() {
+
+        return isdownloaded;
+    }
 
     public String getUrl() {
         return url;
     }
 
-    public Urls(String url, int id) {
-        this.url = url;
-        this.id = id;
-    }
+
 
     public void setId(int id) {
         this.id = id;
