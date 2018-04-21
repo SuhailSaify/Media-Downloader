@@ -1,9 +1,12 @@
 package com.example.suhail.videodownloader;
 
 import android.Manifest;
+import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
@@ -15,6 +18,8 @@ import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -33,12 +38,14 @@ import com.example.suhail.videodownloader.Fragments.MainFrag;
 import com.example.suhail.videodownloader.Fragments.ShowDownloaded;
 import com.example.suhail.videodownloader.Fragments.SocialMediaFrag;
 import com.example.suhail.videodownloader.Fragments.WebView_Frag;
+import com.example.suhail.videodownloader.Fragments.sharefrag;
+import com.example.suhail.videodownloader.Utils.DoNotShowAgain;
 import com.example.suhail.videodownloader.Utils.Utils;
 
 public class MainActivity extends FragmentActivity {
 
 
-
+    DoNotShowAgain doNotShowAgain;
     FrameLayout main_layout;
     FrameLayout download_layout;
     DownloadFrag downloadFrag;
@@ -52,11 +59,7 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
 
 
-
-
         context = MainActivity.this;
-
-
 
 
         Log.d("HERE", Utils.getRootDirPath(getApplicationContext()));
@@ -83,26 +86,57 @@ public class MainActivity extends FragmentActivity {
         final String imageURL = "http://mirrors.standaloneinstaller.com/video-sample/jellyfish-25-mbps-hd-hevc.3gp";
         dirPath = Utils.getRootDirPath(getApplicationContext());
 
-        if (isStoragePermissionGranted() && isStoragePermissionGrantedRead()) {
-            downloadFrag = new DownloadFrag();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.download_container, downloadFrag)
 
-                    .commit();
-
-
-            getSupportFragmentManager().beginTransaction()
-
-                    .add(R.id.main_container, new MainFrag())
-                    .commit();
-
-            download_layout.setVisibility(View.INVISIBLE);
-
-        }
+        doNotShowAgain = new DoNotShowAgain(this);
+        Broadcast();
+        startfrag();
 
 
     }
 
+
+    public void startfrag() {
+        downloadFrag = new DownloadFrag();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.download_container, downloadFrag)
+
+                .commit();
+
+
+        getSupportFragmentManager().beginTransaction()
+
+                .add(R.id.main_container, new MainFrag())
+                .commit();
+
+        download_layout.setVisibility(View.INVISIBLE);
+
+    }
+
+
+    public void putshow(boolean f) {
+        //  doNotShowAgain.putshow(f);
+    }
+
+    private void Broadcast() {
+
+        BroadcastReceiver onComplete = new BroadcastReceiver() {
+            public void onReceive(Context ctxt, Intent intent) {
+
+                if (doNotShowAgain.getShow()) {
+
+
+                    getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new sharefrag()).commit();
+
+                    //  startActivity(new Intent(MainActivity.
+                    //        this, RateShare.class));
+
+                }
+
+            }
+        };
+
+        registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+    }
 
     public void download(String url) {
 
@@ -128,8 +162,17 @@ public class MainActivity extends FragmentActivity {
             case MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(context, "Permission Granted", Toast.LENGTH_SHORT).show();
+
                 } else {
+
                     Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Reopen APP & Please Grant Permission To Continue", Toast.LENGTH_SHORT).show();
+
+                    //isStoragePermissionGranted();
+                    //isStoragePermissionGrantedRead();
+                    //Intent intent = getIntent();
+                    //finish();
+                    //    startActivity(intent);
                 }
                 return;
 
@@ -170,12 +213,33 @@ public class MainActivity extends FragmentActivity {
             download_layout.setVisibility(View.INVISIBLE);
             main_layout.setVisibility(View.VISIBLE);
 
-        }
-
-        else if (f instanceof SocialMediaFrag)
+        } else if (f instanceof SocialMediaFrag)
 
         {
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new MainFrag()).commit();
+            AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+
+            alert.setTitle("Exit to main manu");
+            //alert.setMessage("Exit");
+
+// Set an EditText view to get user input
+            alert.setPositiveButton("Go Back", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+
+
+                    getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new MainFrag()).commit();
+
+                }
+
+            });
+
+            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    // Canceled.
+
+                }
+            });
+
+            alert.show();
 
         } else if (f instanceof ShowDownloaded)
 

@@ -96,7 +96,7 @@ public class MainFrag extends Fragment {
         if(check.getShow().equals("MAIN"))
 
         {
-            Broadcast();
+        //    Broadcast();
 
         }
         Listeners();
@@ -110,7 +110,11 @@ public class MainFrag extends Fragment {
 
                 if (doNotShowAgain.getShow()) {
 
-                    startActivity(new Intent(context, RateShare.class));
+                    FragmentManager fragmentManager2 = getFragmentManager();
+                    FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+                    sharefrag fragment2 = new sharefrag();
+                    fragmentTransaction2.replace(R.id.main_container, fragment2).commit();
+                    //  startActivity(new Intent(context, RateShare.class));
 
                 }
 

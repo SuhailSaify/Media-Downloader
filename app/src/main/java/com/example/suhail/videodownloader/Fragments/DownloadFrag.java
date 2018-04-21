@@ -93,7 +93,7 @@ public class DownloadFrag extends Fragment {
         check = new Check(getActivity());
         doNotShowAgain = new DoNotShowAgain(getActivity());
         if (check.getShow().equals("NOTMAIN")) {
-            Broadcast();
+         //   Broadcast();
         }
         /*<------------------------------------------------------------------------------------------------
         downloadedVidShared = new DownloadedVidShared(getContext(), getActivity());
