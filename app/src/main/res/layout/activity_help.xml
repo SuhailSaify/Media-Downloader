@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:textSize="40sp"
+            android:layout_margin="50dp"
+            android:gravity="center"
+            android:text="HELP"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:text="1. Download a file from direct url."
+            android:textStyle="bold" />
+
+        <TextView
+            android:textStyle="normal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:text="-> If you have a download link of any file or video,paste it on 'Paste Direct File URL' to download file." />
+
+
+        <TextView
+            android:textStyle="normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text=" NOTE : While downloading video from a website that does not provide direct download option, please use 'Download Video From Web Page OR Social Media Site'  option from main menu." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:text="2. Download video from Social Media"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:text="-> For this, copy link to the social media post and use 'Download Video From Web Page OR Social Media Site' option  from main menu, once the page is opened paste your link to the provided box. Next, choose quality of video and it will be downloaded automatically." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:text="3. Download video from Website"
+            android:textStyle="bold" />
+
+        <TextView
+            android:textStyle="normal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:text="-> For this copy link to webpage that contains the video and use 'Download Video From Web Page OR Social Media Site' option from main menu, once the page is opened paste your link to the provided box. Next, choose quality of video and it will be downloaded automatically." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:text="4. View Recent downloads"
+            android:textStyle="bold" />
+
+        <TextView
+            android:textStyle="normal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:text="-> Click on 'View Recent Downloaded Files'" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:text="5. Find file on internet"
+            android:textStyle="bold" />
+
+        <TextView
+            android:textStyle="normal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:text=" -> Click on 'Browse web for file download'.In case of video, if the website provides download link, then  the video will be downloaded automatically, otherwise follow point 2 and 3." />
+
+
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+        
+    </LinearLayout>
+</ScrollView>

@@ -1,40 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frag"
-    android:orientation="vertical"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.suhail.videodownloader.DownloadActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.filesmanager.videodownloader.Fragments.DownloadFrag">
 
-
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="5dp"
-            app:cardUseCompatPadding="true">
-
-            <TextView
-                android:id="@+id/pasteanotherurl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="Paste another URL"
-                android:textStyle="bold" />
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/download_list_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-        </android.support.v7.widget.RecyclerView>
-
-
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

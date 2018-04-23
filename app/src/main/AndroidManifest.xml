@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.suhail.videodownloader">
+    package="com.example.filesmanager.videodownloader">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -18,15 +18,6 @@
         android:theme="@style/AppTheme"
         tools:replace="android:theme">
         <activity android:name=".MainActivity" />
-        <activity android:name=".DownloadActivity" />
-
-        <service android:name=".Utils.DownloadService" />
-        <service
-            android:name=".Services.DownloadService"
-            android:enabled="true"
-            android:exported="true" />
-
-        <activity android:name=".Adapters.TestActivity" />
         <activity android:name=".NoConnectionActivity" />
         <activity android:name=".WelcomeScreen">
             <intent-filter>
@@ -36,7 +27,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ActivityHelp" />
-        <activity android:name=".RateShare"></activity>
     </application>
 
 </manifest>

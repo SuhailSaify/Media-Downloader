@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.SocialMediaFrag">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:id="@+id/goback_socialmedia"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_arrow_back" />
+
+            <TextView
+                android:paddingStart="10dp"
+                android:textSize="17.5sp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="Download From Social Media/WEBSITE"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_height="8dp"
+            android:id="@+id/pg_bar_social_media"/>
+
+        <WebView
+            android:id="@+id/web_view_socailmedia"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"></WebView>
+    </LinearLayout>
+
+</FrameLayout>

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
 
-    tools:context="com.example.suhail.videodownloader.Fragments.MainFrag">
+    tools:context="com.example.filesmanager.videodownloader.Fragments.MainFrag">
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
