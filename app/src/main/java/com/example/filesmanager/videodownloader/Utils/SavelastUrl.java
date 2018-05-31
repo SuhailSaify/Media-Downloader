@@ -5,11 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-
-
-
-import java.util.ArrayList;
-
 /**
  * Created by Suhail on 4/8/2018.
  */

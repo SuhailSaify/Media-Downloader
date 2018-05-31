@@ -3,11 +3,10 @@ package com.example.filesmanager.videodownloader.Fragments;
 
 import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
-import android.content.BroadcastReceiver;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -97,6 +96,7 @@ public class MainFrag extends Fragment {
 
 
     private void Listeners() {
+
 
 
         rate_app.setOnClickListener(

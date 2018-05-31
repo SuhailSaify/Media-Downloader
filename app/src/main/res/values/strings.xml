@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">All File Downloader</string>
+    <string name="app_name">All-in-One Downloader</string>
     <string name="some_error_occurred">Some error occurred</string>
     <string name="start">start</string>
     <string name="completed">completed</string>
@@ -11,5 +11,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="download_view_downloading_file">Download /View Downloading file</string>
+    <string name="download_warning">* Downloads from Youtube and other private platforms will be restricted automatically !</string>
 </resources>
 

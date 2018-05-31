@@ -6,9 +6,6 @@ import android.preference.PreferenceManager;
 
 import com.example.filesmanager.videodownloader.MainActivity;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 /**
  * Created by Suhail on 4/7/2018.
  */

@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="15dp"
-            android:text="-> If you have a download link of any file or video,paste it on 'Paste Direct File URL' to download file." />
+            android:text="-> If you have a download link of any file or video, paste it on 'Paste Direct File URL' to download ypur file." />
 
 
         <TextView
@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="15dp"
-            android:text="-> For this, copy link to the social media post and use 'Download Video From Web Page OR Social Media Site' option  from main menu, once the page is opened paste your link to the provided box. Next, choose quality of video and it will be downloaded automatically." />
+            android:text="-> For this, copy link to the social media post that you wish to download and use 'Download Video From Web Page OR Social Media Site' option  from main menu. Next choose the social media platform and paste your link to the provided box. Next, choose quality of video and it will be downloaded automatically." />
 
         <TextView
             android:layout_width="match_parent"
@@ -70,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="15dp"
-            android:text="-> For this copy link to webpage that contains the video and use 'Download Video From Web Page OR Social Media Site' option from main menu, once the page is opened paste your link to the provided box. Next, choose quality of video and it will be downloaded automatically." />
+            android:text="-> For this copy link to web page that contains the video and use 'Download Video From Web Page OR Social Media Site' option from main menu and click on  'Download From Other web pages', now paste your link to the provided box. Next, choose quality of video and it will be downloaded automatically." />
 
         <TextView
             android:layout_width="match_parent"

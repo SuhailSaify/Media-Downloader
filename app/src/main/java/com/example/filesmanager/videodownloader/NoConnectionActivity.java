@@ -2,7 +2,6 @@ package com.example.filesmanager.videodownloader;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-
-import java.util.Collections;
 
 public class NoConnectionActivity extends AppCompatActivity {
     ImageView imageView;

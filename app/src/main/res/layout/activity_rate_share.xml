@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/cardview_dark_background"
+    android:background="@color/grey"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".RateShare">
@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/grey"
-        app:cardCornerRadius="20dp"
+        app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
         app:cardUseCompatPadding="true">
 
@@ -41,7 +41,10 @@
                 android:text="Share this app"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="2dp"
+    android:background="@color/grey"/>
             <TextView
                 android:id="@+id/rateapp"
                 android:layout_width="match_parent"
@@ -54,7 +57,10 @@
                 android:text="Rate this app"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/grey"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
