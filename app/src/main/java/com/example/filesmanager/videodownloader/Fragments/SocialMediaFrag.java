@@ -103,6 +103,8 @@ public class SocialMediaFrag extends Fragment {
                 activeNetwork.isConnectedOrConnecting();
 
         if (isConnected) {
+
+            progressBar = getActivity().findViewById(R.id.pg_bar_social_media);
             progressl = new ProgressDialog(getActivity());
             back = getActivity().findViewById(R.id.goback_socialmedia);
             webviewLayout = getActivity().findViewById(R.id.layout_webview);
@@ -280,7 +282,7 @@ public class SocialMediaFrag extends Fragment {
         }
 
 
-        progressBar = getActivity().findViewById(R.id.pg_bar_social_media);
+
 
         if (webView != null) {
 
