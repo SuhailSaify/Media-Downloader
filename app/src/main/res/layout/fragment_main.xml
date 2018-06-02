@@ -17,189 +17,62 @@
 
         tools:context="com.example.filesmanager.videodownloader.Fragments.MainFrag">
 
-
-        <LinearLayout
-            android:id="@+id/help"
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="0dp"
-            android:background="@color/grey"
-            android:gravity="right"
+            app:cardElevation="5dp"
+            app:cardUseCompatPadding="false">
 
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
+            <LinearLayout
+                android:id="@+id/help"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="false"
-                android:focusable="true"
-                android:src="@drawable/ic_help" />
+                android:layout_margin="0dp"
+                android:background="@color/grey"
+                android:gravity="right"
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="false"
-                android:focusable="true"
-                android:gravity="center"
-                android:paddingEnd="10dp"
-                android:text="Help"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </LinearLayout>
+                android:orientation="horizontal">
+
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="false"
+                    android:focusable="true"
+                    android:src="@drawable/ic_help" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="false"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:paddingEnd="10dp"
+                    android:text="Help"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
 
 
         <android.support.v4.widget.Space
             android:layout_width="match_parent"
             android:layout_height="15dp" />
 
-        <android.support.v7.widget.CardView
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="10dp"
-            app:cardCornerRadius="10dp"
-            app:cardMaxElevation="10dp"
-            app:cardUseCompatPadding="true">
-
-            <LinearLayout
-                android:id="@+id/social_media_download"
-                android:layout_width="300dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="left"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.AppCompatImageView
-
-                    android:layout_width="70dp"
-
-
-                    android:layout_height="70dp"
-                    android:padding="5dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_social" />
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent" />
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:paddingStart="20dp"
-                    android:text="Download Video From Web Page OR Social Media Site"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-
-        <!-- TODO: Update blank fragment layout -->
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"
-            android:elevation="10dp"
-            app:cardCornerRadius="10dp"
-            app:cardMaxElevation="10dp"
-            app:cardUseCompatPadding="true">
-
-            <LinearLayout
-                android:id="@+id/Paste_url"
-                android:layout_width="300dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="left"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="70dp"
-
-
-                    android:layout_height="70dp"
-                    android:padding="5dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_download" />
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:paddingStart="50dp"
-                    android:text="Paste Direct File URL"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="10dp"
+            android:elevation="15dp"
             app:cardCornerRadius="10dp"
-            app:cardMaxElevation="10dp"
-            app:cardUseCompatPadding="true">
-
-            <LinearLayout
-                android:id="@+id/view_downloads"
-                android:layout_width="300dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="left"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="70dp"
-
-
-                    android:layout_height="70dp"
-                    android:padding="5dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_action_name" />
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:paddingStart="20dp"
-                    android:text="View Recent Downloaded Files"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="10dp"
-            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
             app:cardMaxElevation="10dp"
             app:cardUseCompatPadding="true">
 
@@ -232,10 +105,147 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:paddingStart="20dp"
-                    android:text="Browse web for file download"
+                    android:text="Go to a website and scan for videos/files."
                     android:textStyle="bold" />
 
             </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="15dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
+            app:cardMaxElevation="10dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:id="@+id/social_media_download"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+
+                    android:layout_width="70dp"
+
+
+                    android:layout_height="70dp"
+                    android:padding="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_social" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:paddingStart="20dp"
+                    android:text="Have sharable link to the social media post or website, click here."
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+
+        <!-- TODO: Update blank fragment layout -->
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="15dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
+            app:cardMaxElevation="10dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:id="@+id/Paste_url"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="70dp"
+
+
+                    android:layout_height="70dp"
+                    android:padding="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_download" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="5dp"
+                   android:paddingStart="15dp"
+                    android:text="Have direct download URL, click here."
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="15dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
+            app:cardMaxElevation="10dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:id="@+id/view_downloads"
+                android:layout_width="300dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="left"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="70dp"
+
+
+                    android:layout_height="70dp"
+                    android:padding="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_action_name" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:paddingStart="20dp"
+                    android:text="View Recently Downloaded Files."
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
 
         </android.support.v7.widget.CardView>
 
@@ -317,7 +327,6 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
-
 
 
         </LinearLayout>

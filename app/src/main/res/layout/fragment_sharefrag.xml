@@ -31,6 +31,7 @@
 
 
             <TextView
+
                 android:id="@+id/shareapp1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

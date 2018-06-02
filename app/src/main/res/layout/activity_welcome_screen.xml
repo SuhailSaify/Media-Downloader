@@ -20,7 +20,7 @@
             android:layout_gravity="center"
             android:foregroundGravity="center"
             android:scaleType="fitXY"
-            android:src="@drawable/logo2" />
+            android:src="@mipmap/welcome" />
 
     </LinearLayout>
 </RelativeLayout>

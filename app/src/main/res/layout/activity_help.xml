@@ -70,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="15dp"
-            android:text="-> For this copy link to web page that contains the video and use 'Download Video From Web Page OR Social Media Site' option from main menu and click on  'Download From Other web pages', now paste your link to the provided box. Next, choose quality of video and it will be downloaded automatically." />
+            android:text="-> Go to webpage and click on download icon on bottom-right to scan for videos. " />
 
         <TextView
             android:layout_width="match_parent"
@@ -105,6 +105,21 @@
         <android.support.v4.widget.Space
             android:layout_width="match_parent"
             android:layout_height="20dp" />
-        
+
+        <TextView
+            android:textStyle="normal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:text="Organization : Zape zone(thezapezone@gmail.com) " />
+
+        <TextView
+            android:textStyle="normal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:text="Developer : Suhail Saifi(suhai14298@gmail.com) " />
+
+
     </LinearLayout>
 </ScrollView>

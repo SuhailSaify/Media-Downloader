@@ -18,6 +18,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,11 +30,23 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.filesmanager.videodownloader.ActivityHelp;
+import com.example.filesmanager.videodownloader.ApiClient.ApiClient;
+import com.example.filesmanager.videodownloader.Interfaces.ApiInterface;
 import com.example.filesmanager.videodownloader.MainActivity;
 import com.example.filesmanager.videodownloader.NoConnectionActivity;
 import com.example.filesmanager.videodownloader.R;
 
 import com.example.filesmanager.videodownloader.Utils.DoNotShowAgain;
+import com.example.filesmanager.videodownloader.model.Example;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -44,7 +57,7 @@ public class MainFrag extends Fragment {
     /*
     <!---------------------------------------declaration-----------------------------------------------------------------
      */
-
+    ArrayList<Example> arrayList;
     DoNotShowAgain doNotShowAgain;
     LinearLayout share_app;
     LinearLayout rate_app;
@@ -96,7 +109,6 @@ public class MainFrag extends Fragment {
 
 
     private void Listeners() {
-
 
 
         rate_app.setOnClickListener(
@@ -211,6 +223,13 @@ public class MainFrag extends Fragment {
                             @Override
                             public void onClick(View view) {
 
+
+
+
+
+
+
+
                                 Boolean isConnected;
 
                                 ConnectivityManager cm =
@@ -235,10 +254,45 @@ public class MainFrag extends Fragment {
                                     startActivity(new Intent(getActivity(), NoConnectionActivity.class));
                                 }
 
-
                             }
                         }
         );
+    }
+
+
+    void getvideofromurl(String url)
+    {
+
+        final ApiInterface apiservice = ApiClient.getClient().create(ApiInterface.class);
+
+        String currenturl = "https://www.youtube.com/watch?v=aJOTlE1K90k";
+
+
+
+        Call <Example> call=apiservice.getvideo(currenturl,"json");
+        call.enqueue(new Callback<Example>() {
+            @Override
+            public void onResponse(Call<Example> call, Response<Example> response) {
+
+                Example example=response.body();
+
+                for(int i=0;i<example.getUrls().size();++i)
+
+                {
+                    Log.d("response",example.getUrls().get(i).getId());
+                    Log.d("label",example.getUrls().get(i).getLabel());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Example> call, Throwable t) {
+
+                Log.d("failed",t.getMessage());
+            }
+        });
+
+
     }
 
     void ShowRateShareAPP() {

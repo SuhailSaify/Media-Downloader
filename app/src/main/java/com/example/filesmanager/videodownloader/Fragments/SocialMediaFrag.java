@@ -1,5 +1,6 @@
 package com.example.filesmanager.videodownloader.Fragments;
 
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -8,7 +9,9 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -35,16 +38,23 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.filesmanager.videodownloader.ApiClient.ApiClient;
+import com.example.filesmanager.videodownloader.Interfaces.ApiInterface;
 import com.example.filesmanager.videodownloader.MainActivity;
 import com.example.filesmanager.videodownloader.NoConnectionActivity;
 import com.example.filesmanager.videodownloader.R;
+import com.example.filesmanager.videodownloader.model.Example;
 
 import java.util.zip.Inflater;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class SocialMediaFrag extends Fragment {
 
-
+    Example example;
     ProgressDialog progressl;
     boolean backtomain = true;
     LinearLayout webviewLayout;
@@ -73,12 +83,14 @@ public class SocialMediaFrag extends Fragment {
             //"https://en.savefrom.net/"
             ;
     String urlothers =
+            "https://www.saveitoffline.com/"
 
-
-            "https://en.savefrom.net/";
+            //"https://en.savefrom.net/"
+            ;
     WebView webView;
     ProgressBar progressBar;
     LinearLayout layout;
+
 
     public SocialMediaFrag() {
         // Required empty public constructor
@@ -103,6 +115,7 @@ public class SocialMediaFrag extends Fragment {
                 activeNetwork.isConnectedOrConnecting();
 
         if (isConnected) {
+
 
             progressBar = getActivity().findViewById(R.id.pg_bar_social_media);
             progressl = new ProgressDialog(getActivity());
@@ -280,8 +293,6 @@ public class SocialMediaFrag extends Fragment {
 
             }
         }
-
-
 
 
         if (webView != null) {
@@ -501,4 +512,9 @@ public class SocialMediaFrag extends Fragment {
         optionLayout.setVisibility(view2);
     }
 
+
+
+
 }
+
+
