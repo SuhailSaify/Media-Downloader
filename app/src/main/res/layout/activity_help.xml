@@ -111,14 +111,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="15dp"
-            android:text="Organization : Zape zone(thezapezone@gmail.com) " />
+            android:text="Organization : Zape zone (thezapezone@gmail.com) " />
 
         <TextView
             android:textStyle="normal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="15dp"
-            android:text="Developer : Suhail Saifi(suhai14298@gmail.com) " />
+            android:text="Developer : Suhail Saifi (suhai14298@gmail.com) " />
 
 
     </LinearLayout>

@@ -131,6 +131,7 @@ public class SocialMediaFrag extends Fragment {
             setvisisblity(invisible, visible);
             backtomain = true;
 
+
             listenerOne(view);
 
 

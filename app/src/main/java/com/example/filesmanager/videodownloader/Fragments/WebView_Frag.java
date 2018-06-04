@@ -7,12 +7,14 @@ import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.renderscript.ScriptGroup;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageView;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,9 +52,9 @@ public class WebView_Frag extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
+
     AppCompatImageView checkforvideo;
     ImageView imageView;
-    EditText url;
     Button go;
     SavelastUrl savelastUrl;
     WebView webView;
@@ -63,6 +65,7 @@ public class WebView_Frag extends Fragment {
     ProgressDialog progressDialog2;
     private Uri Download_Uri;
     DownloadManager downloadManager;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,6 +79,7 @@ public class WebView_Frag extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //<!-------------------------------------------------------------------------------------------------
         downloadManager = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
         progressl = new ProgressDialog(getActivity());
         progressDialog2 = new ProgressDialog(getActivity());
@@ -84,21 +88,25 @@ public class WebView_Frag extends Fragment {
         savelastUrl = new SavelastUrl(getContext(), getActivity());
         searchView = getActivity().findViewById(R.id.searchvew);
         String s = savelastUrl.geturl();
-
         imageView = getActivity().findViewById(R.id.goback);
         go = getActivity().findViewById(R.id.gobutton);
-        // url = getActivity().findViewById(R.id.url_edittext);
         webView = getActivity().findViewById(R.id.web_view);
         webView.setWebViewClient(new MyBrowser());
-
         checkforvideo.setEnabled(true);
 
-        if (s != null)
+
+//----------------------------------!>
+
+        if (s.contains(".com"))
 
         {
+
             webView.loadUrl(s);
 
+            searchView.setQuery(s, false);
+
         } else {
+
             webView.loadUrl("https://www.google.com");
         }
         webView.setWebChromeClient(new WebChromeClient() {
@@ -108,13 +116,15 @@ public class WebView_Frag extends Fragment {
 
                 if (progress == 100) {
 
-//                    url.setText(webView.getUrl());
-                    //searchView.setQuery(webView.getUrl(), false);
-                    progressBar.setVisibility(View.GONE);
 
+                    progressBar.setVisibility(View.GONE);
                     savelastUrl.saveURL(webView.getUrl());
                     checkforvideo.setEnabled(true);
+                    if (webView.getUrl() != null)
 
+                    {
+                        searchView.setQuery(webView.getUrl(), false);
+                    }
                 } else {
                     progressBar.setVisibility(View.VISIBLE);
                 }
@@ -145,7 +155,6 @@ public class WebView_Frag extends Fragment {
 
                             alert.setPositiveButton("back", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
-
 
                                 }
 
@@ -181,12 +190,16 @@ public class WebView_Frag extends Fragment {
                         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
                         if (url1.contains("https://")) {
                             webView.loadUrl(url1);
+                            searchView.setQuery(url1, false);
                         } else if (url1.contains("www.") && url1.contains(".com")) {
                             webView.loadUrl("https://" + url1);
+                            searchView.setQuery(url1, false);
                         } else if (url1.contains(".com")) {
                             webView.loadUrl("https://www." + url1);
+                            searchView.setQuery(url1, false);
                         } else {
                             webView.loadUrl("https://www.google.com/search?q=" + url1);
+                            searchView.setQuery(url1, false);
                         }
 
                         return false;
@@ -269,13 +282,11 @@ public class WebView_Frag extends Fragment {
 
 
         progressl.setTitle("Loading");
-        progressl.setMessage("Fetching Videos ...");
+        progressl.setMessage("Fetching Videos ...please wait");
         progressl.setCancelable(false); // disable dismiss by tapping outside of the dialog
         progressl.show();
 
         final ApiInterface apiservice = ApiClient.getClient().create(ApiInterface.class);
-
-        String currenturl = "https://www.youtube.com/watch?v=aJOTlE1K90k";
 
 
         Call<Example> call = apiservice.getvideo(url, "json");
@@ -439,7 +450,7 @@ public class WebView_Frag extends Fragment {
 
 
         long refid = downloadManager.enqueue(request);
-        Toast.makeText(getActivity(), "Downloading" + ext + " file", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Downloading " + ext + " file", Toast.LENGTH_SHORT).show();
 
 
     }

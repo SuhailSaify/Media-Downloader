@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.filesmanager.videodownloader.Fragments.WebView_Frag">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,15 +34,15 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:padding="5dp"
-
                     android:src="@drawable/ic_arrow_back" />
 
                 <SearchView
-                    android:inputType="textWebEmailAddress"
+
                     android:id="@+id/searchvew"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"
+                    android:inputType="textWebEmailAddress"
                     android:textAlignment="textStart">
 
                 </SearchView>
@@ -62,44 +62,53 @@
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="7dp"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/abc" />
 
-        <WebView
-            android:id="@+id/web_view"
-            android:layout_width="match_parent"
-            android:layout_height="508dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true" />
+            />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="66dp"
-            android:layout_marginEnd="63dp"
-            android:orientation="vertical">
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <WebView
+                    android:id="@+id/web_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="51dp"
+                    android:layout_height="75dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="66dp"
+                    android:layout_marginEnd="58dp"
+                    android:orientation="vertical">
 
 
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/checkforvideo"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/checkforvideo"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
 
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="false"
-                android:focusable="true"
-                android:src="@drawable/ic_logo_laucher" />
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="false"
+                        android:focusable="true"
+                        android:src="@drawable/ic_logo_laucher" />
 
-            <TextView
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="Scan" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Scan"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 
 </FrameLayout>
