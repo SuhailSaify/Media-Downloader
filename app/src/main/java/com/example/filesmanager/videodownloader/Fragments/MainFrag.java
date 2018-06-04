@@ -3,7 +3,6 @@ package com.example.filesmanager.videodownloader.Fragments;
 
 import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,7 +17,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,9 +38,6 @@ import com.example.filesmanager.videodownloader.Utils.DoNotShowAgain;
 import com.example.filesmanager.videodownloader.model.Example;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -96,7 +91,7 @@ public class MainFrag extends Fragment {
         share_app = getActivity().findViewById(R.id.share_main);
         rate_app = getActivity().findViewById(R.id.rate_main);
         main_layout = getActivity().findViewById(R.id.main_container);
-        download_layout = getActivity().findViewById(R.id.download_container);
+
         linearLayout_help = getActivity().findViewById(R.id.help);
         socialMedia = getActivity().findViewById(R.id.social_media_download);
         view_downloads = getActivity().findViewById(R.id.view_downloads);
@@ -170,10 +165,10 @@ public class MainFrag extends Fragment {
                         // shredPref.put(false);
 
                         main_layout.setVisibility(View.VISIBLE);
-                        download_layout.setVisibility(View.INVISIBLE);
+
                         FragmentManager fragmentManager2 = getFragmentManager();
                         FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
-                        DownFragment fragment2 = new DownFragment();
+                        ShowDownloads fragment2 = new ShowDownloads();
                         fragmentTransaction2.replace(R.id.main_container, fragment2).commit();
 
 
@@ -204,13 +199,7 @@ public class MainFrag extends Fragment {
                         }
 
 
-                        // main_layout.setVisibility(View.INVISIBLE);
-                        //download_layout.setVisibility(View.VISIBLE);
-                       /* FragmentManager fragmentManager2 = getFragmentManager();
-                        FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
-                        DownloadFrag fragment2 = new DownloadFrag();
-                        fragmentTransaction2.replace(R.id.main_container, fragment2).commit();
-*/
+
 
                     }
                 }
@@ -242,7 +231,7 @@ public class MainFrag extends Fragment {
                                 if (isConnected) {
                                     main_layout.setVisibility(View.VISIBLE);
 
-                                    download_layout.setVisibility(View.INVISIBLE);
+
 
                                     FragmentManager fragmentManager2 = getFragmentManager();
                                     FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
@@ -260,75 +249,6 @@ public class MainFrag extends Fragment {
     }
 
 
-    void getvideofromurl(String url)
-    {
-
-        final ApiInterface apiservice = ApiClient.getClient().create(ApiInterface.class);
-
-        String currenturl = "https://www.youtube.com/watch?v=aJOTlE1K90k";
-
-
-
-        Call <Example> call=apiservice.getvideo(currenturl,"json");
-        call.enqueue(new Callback<Example>() {
-            @Override
-            public void onResponse(Call<Example> call, Response<Example> response) {
-
-                Example example=response.body();
-
-                for(int i=0;i<example.getUrls().size();++i)
-
-                {
-                    Log.d("response",example.getUrls().get(i).getId());
-                    Log.d("label",example.getUrls().get(i).getLabel());
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<Example> call, Throwable t) {
-
-                Log.d("failed",t.getMessage());
-            }
-        });
-
-
-    }
-
-    void ShowRateShareAPP() {
-
-        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-
-        alert.setTitle("Rate/Share");
-
-
-// Set an EditText view to get user input
-
-        alert.setPositiveButton("Rate this app", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                rateapp();
-
-            }
-        });
-        alert.setPositiveButton("Share", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-
-                shareapp();
-            }
-
-        });
-
-        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // Canceled.
-            }
-        });
-
-        alert.show();
-
-
-    }
 
 
     void rateapp() {

@@ -17,20 +17,16 @@ import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
-import android.webkit.MimeTypeMap;
+import android.webkit.URLUtil;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 
-import java.io.File;
-
-import com.example.filesmanager.videodownloader.Fragments.DownFragment;
-import com.example.filesmanager.videodownloader.Fragments.DownloadFrag;
+import com.example.filesmanager.videodownloader.Fragments.ShowDownloads;
 import com.example.filesmanager.videodownloader.Fragments.MainFrag;
 import com.example.filesmanager.videodownloader.Fragments.SocialMediaFrag;
 import com.example.filesmanager.videodownloader.Fragments.WebView_Frag;
@@ -44,7 +40,7 @@ public class MainActivity extends FragmentActivity {
     DoNotShowAgain doNotShowAgain;
     FrameLayout main_layout;
     FrameLayout download_layout;
-    DownloadFrag downloadFrag;
+    DownloadManager downloadManager;
     Context context;
     private static final int MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE = 1;
     String dirPath;
@@ -70,16 +66,14 @@ public class MainActivity extends FragmentActivity {
             startActivity(new Intent(MainActivity.this, NoConnectionActivity.class));
         }
 
+        downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         main_layout = findViewById(R.id.main_container);
-        download_layout = findViewById(R.id.download_container);
+
 
         isStoragePermissionGranted();
         isStoragePermissionGrantedRead();
-
-        // context = MainActivity.this;
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
-        final String imageURL = "http://mirrors.standaloneinstaller.com/video-sample/jellyfish-25-mbps-hd-hevc.3gp";
         dirPath = Utils.getRootDirPath(getApplicationContext());
 
 
@@ -92,11 +86,7 @@ public class MainActivity extends FragmentActivity {
 
 
     public void startfrag() {
-        downloadFrag = new DownloadFrag();
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.download_container, downloadFrag)
 
-                .commit();
 
 
         getSupportFragmentManager().beginTransaction()
@@ -104,14 +94,12 @@ public class MainActivity extends FragmentActivity {
                 .add(R.id.main_container, new MainFrag())
                 .commit();
 
-        download_layout.setVisibility(View.INVISIBLE);
+
 
     }
 
 
-    public void putshow(boolean f) {
-        //  doNotShowAgain.putshow(f);
-    }
+
 
     private void Broadcast() {
 
@@ -123,8 +111,7 @@ public class MainActivity extends FragmentActivity {
 
                     getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new sharefrag()).commit();
 
-                    //  startActivity(new Intent(MainActivity.
-                    //        this, RateShare.class));
+
 
                 }
 
@@ -134,22 +121,42 @@ public class MainActivity extends FragmentActivity {
         registerReceiver(onComplete, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
-    public void download(String url) {
+    public void download(String uurl) {
 
-        downloadFrag.setRecyclerView(url);
+        Boolean isConnected;
 
-    }
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+        if (isConnected) {
 
 
-    public void checkWriteExternalStoragePermission() {
-        final int MY_PERMISSIONS_REQUEST_PHONE_CALL = 1;
-        ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions((MainActivity) context,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE);
+            Uri uri = Uri.parse(uurl);
+            String name = URLUtil.guessFileName(uurl, null, null);
+            DownloadManager.Request req = new DownloadManager.Request(uri);
+
+            req.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI
+                    | DownloadManager.Request.NETWORK_MOBILE)
+                    .setAllowedOverRoaming(true)
+                    .setTitle(name)
+                    .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                    .setDescription("Downloading File")
+                    .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,
+                            name);
+            downloadManager.enqueue(req);
+
+        } else {
+            startActivity(new Intent(MainActivity.this, NoConnectionActivity.class));
         }
+
     }
+
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -164,11 +171,7 @@ public class MainActivity extends FragmentActivity {
                     Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show();
                     Toast.makeText(context, "If permission denied, restart APP & Please Grant Permission To Continue", Toast.LENGTH_SHORT).show();
 
-                    //isStoragePermissionGranted();
-                    //isStoragePermissionGrantedRead();
-                    //Intent intent = getIntent();
-                    //finish();
-                    //    startActivity(intent);
+
                 }
                 return;
 
@@ -178,22 +181,6 @@ public class MainActivity extends FragmentActivity {
     }
 
 
-    public void Openfile(String filename) {
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath() + File.separator +
-                filename);
-        Intent intent = new Intent();
-        intent.setAction(android.content.Intent.ACTION_VIEW);
-
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        String ext = file.getName().substring(file.getName().indexOf(".") + 1);
-        String type = mime.getMimeTypeFromExtension(ext);
-
-        intent.setDataAndType(Uri.fromFile(file), type);
-
-        context.startActivity(intent);
-
-
-    }
 
     @Override
     public void onBackPressed() {
@@ -201,7 +188,7 @@ public class MainActivity extends FragmentActivity {
 
         Fragment f = getSupportFragmentManager().findFragmentById(R.id.main_container);
 
-
+/*
         if (download_layout.getVisibility() == View.VISIBLE)
         // do something with f
         {
@@ -209,13 +196,13 @@ public class MainActivity extends FragmentActivity {
             download_layout.setVisibility(View.INVISIBLE);
             main_layout.setVisibility(View.VISIBLE);
 
-        } else if (f instanceof SocialMediaFrag)
+        } else */if (f instanceof SocialMediaFrag)
 
         {
             AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
 
             alert.setTitle("Exit to main manu");
-            //alert.setMessage("Exit");
+
 
 // Set an EditText view to get user input
             alert.setPositiveButton("Go Back", new DialogInterface.OnClickListener() {
@@ -243,7 +230,7 @@ public class MainActivity extends FragmentActivity {
             AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
 
             alert.setTitle("Exit to main manu");
-            //alert.setMessage("Exit");
+
 
 // Set an EditText view to get user input
             alert.setPositiveButton("Go Back", new DialogInterface.OnClickListener() {
@@ -258,7 +245,7 @@ public class MainActivity extends FragmentActivity {
 
             alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
-                    // Canceled.
+
 
                 }
             });
@@ -266,7 +253,7 @@ public class MainActivity extends FragmentActivity {
             alert.show();
 
 
-        } else if (f instanceof DownFragment) {
+        } else if (f instanceof ShowDownloads) {
 
 
             getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new MainFrag()).commit();
@@ -285,7 +272,7 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public void onDestroy() {
-        // Toast.makeText(getApplicationContext(), "destroyed", Toast.LENGTH_SHORT).show();
+
         super.onDestroy();
     }
 
@@ -335,5 +322,6 @@ public class MainActivity extends FragmentActivity {
 
 /*
 created by Suhail Saifi
-DTU/2k16/ec/166
+Suhail.14298@gmail.com
+
  */

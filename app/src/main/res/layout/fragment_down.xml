@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="center"
-    tools:context=".Fragments.DownFragment">
+    tools:context=".Fragments.ShowDownloads">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

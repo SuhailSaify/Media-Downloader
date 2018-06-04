@@ -208,23 +208,7 @@ public class SocialMediaFrag extends Fragment {
 
 
 
-     /*   view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
 
-                Rect r = new Rect();
-                //r will be populated with the coordinates of your view that area still visible.
-                view.getWindowVisibleDisplayFrame(r);
-
-                int heightDiff = view.getRootView().getHeight() - (r.bottom - r.top);
-                if (heightDiff > 500) { // if more than 100 pixels, its probably a keyboard...
-
-                } else {
-
-                }
-            }
-        });
-*/
 
         DisplayMetrics displayMetrics = getActivity().getResources().getDisplayMetrics();
         float dpHeight = displayMetrics.heightPixels / displayMetrics.density;
@@ -335,14 +319,16 @@ public class SocialMediaFrag extends Fragment {
                     progressl.show();
 // To dismiss the dialog
 
+                 /*   if ((!webView.getUrl().equals(urlothers))) {
+                        if ((!webView.getUrl().equals(url))
+                                && (!webView.getUrl().equals("https://www.fbdown.net/download.php"))
+                                && (!webView.getUrl().equals("https://twdown.net/download.php"))
 
-                    if ((!webView.getUrl().equals(url))
-                            && (!webView.getUrl().equals("https://www.fbdown.net/download.php"))
-                            && (!webView.getUrl().equals("https://twdown.net/download.php"))
-                            ) {
-                        webView.loadUrl(url);
+                                ) {
+                            webView.loadUrl(url);
+                        }
                     }
-
+                   */
                     if (progress > 70) {
                         progressl.dismiss();
                     }
@@ -512,8 +498,6 @@ public class SocialMediaFrag extends Fragment {
         webviewLayout.setVisibility(view1);
         optionLayout.setVisibility(view2);
     }
-
-
 
 
 }
