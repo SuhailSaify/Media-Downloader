@@ -1,4 +1,4 @@
-## Video-Downloader-Android Application
+## Media-Downloader-Android Application
 #Works for Facebook, Instagram, Twitter + any other webpage
 
 APIs used : 
